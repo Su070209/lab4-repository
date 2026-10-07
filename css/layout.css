@@ -1,0 +1,116 @@
+/* =========================================================
+   layout.css — 左右固定/滚动双栏 + 整体布局
+   ========================================================= */
+
+body { overflow-x: hidden; }
+
+/* 像素农场背景场景：固定铺满 */
+.bg-scene {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: var(--cream);
+}
+
+/* 像素颗粒纹理 + 暗角：避免大面积纯色显得单调 */
+.bg-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(rgba(107, 68, 35, 0.10) 1px, transparent 1px),
+    radial-gradient(rgba(255, 255, 255, 0.40) 1px, transparent 1px);
+  background-size: 8px 8px, 8px 8px;
+  background-position: 0 0, 4px 4px;
+  box-shadow: inset 0 0 200px rgba(107, 68, 35, 0.20);
+}
+.scene {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ---------- 像素装饰元素（麦穗/花/小鸡/树叶） ---------- */
+.deco-wheat, .deco-flower, .deco-chick, .deco-leaf {
+  position: fixed;
+  z-index: -1;
+  opacity: 0.96;
+  filter: none;
+}
+.deco-wheat  { left: 18px; bottom: 16px; transform: scale(1.15); }
+.deco-flower { right: 22px; top: 120px; }
+.deco-chick  { left: 22px; top: 42%; }
+.deco-leaf   { right: 26px; bottom: 22px; transform: scale(1.1); }
+
+/* 固定定位的风车与栅栏：锚定视口角落，不随内容栏位置变化 */
+.deco-windmill, .deco-fence {
+  position: fixed;
+  z-index: -1;
+  opacity: 0.96;
+}
+.deco-windmill { left: 20px; bottom: 96px; }
+.deco-fence    { right: 24px; top: 44%; transform: scale(1.05); }
+
+/* ---------- 页面主容器：桌面端左右，移动端上下 ---------- */
+.page {
+  min-height: 100vh;
+  display: flex;
+  gap: 26px;
+  padding: 26px 22px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* 左侧固定栏 */
+.sidebar {
+  position: sticky;
+  top: 26px;
+  align-self: flex-start;
+  flex: 0 0 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 300px;
+  height: calc(100vh - 52px);
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* 右侧滚动区 */
+.content {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.sec { padding-bottom: 10px; }
+.sec-title { margin-bottom: 10px; }
+.sec-sub { margin-bottom: 18px; color: var(--brown-lt); }
+.sub-title { margin: 22px 0 12px; font-size: 15px; }
+
+/* 区块过渡（游戏对话框式接管时隐藏） */
+.content.section-leaving { opacity: 0; transform: translateY(-6px); }
+.content.section-arriving { animation: secArrive 0.32s steps(5, end) both; }
+
+@keyframes secArrive {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== 深色主题：压暗整屏像素场景与装饰 ===== */
+html[data-theme="dark"] .bg-scene { filter: brightness(0.45) saturate(0.8); }
+
+html[data-theme="dark"] .deco-wheat,
+html[data-theme="dark"] .deco-flower,
+html[data-theme="dark"] .deco-chick,
+html[data-theme="dark"] .deco-leaf,
+html[data-theme="dark"] .deco-windmill,
+html[data-theme="dark"] .deco-fence {
+  opacity: 0.75;
+  filter: brightness(0.55);
+}
+
+html[data-theme="dark"] .avatar { filter: brightness(0.85); }

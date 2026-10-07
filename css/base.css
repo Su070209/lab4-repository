@@ -1,0 +1,90 @@
+/* =========================================================
+   base.css — 变量 / 重置 / 字体 / 像素基础
+   ========================================================= */
+
+:root {
+  /* 复古暖色调色盘 */
+  --soil:     #8a5a3b;   /* 土棕 */
+  --soil-lt:  #9c6b3f;
+  --grass:    #7cb342;   /* 青草绿 */
+  --grass-dk: #5f9c47;
+  --cream:    #f5e9cd;   /* 米黄色 */
+  --parchment:#e9d4a6;   /* 羊皮纸 */
+  --parch-lt: #f6e8c8;
+  --sun:      #ffd966;   /* 暖橘/暖阳 */
+  --orange:   #e8894a;
+  --brown:    #4a2f1d;   /* 文字主色 */
+  --brown-lt: #6b4423;   /* 边框 */
+  --wood:     #8a5a32;   /* 木框 */
+  --wood-dk:  #6b4423;
+  --ink:      #3b2a1a;
+
+  /* 像素字体栈 */
+  --font-head: "Press Start 2P", "Zpix", "Microsoft YaHei", monospace;
+  --font-body: "Zpix", "Microsoft YaHei", "PingFang SC", monospace;
+}
+
+/* ===== 像素中文字体（网络可用时启用，失败则回落系统字体） ===== */
+@font-face {
+  font-family: "Zpix";
+  src: url("https://cdn.jsdelivr.net/npm/zpix@1.0.0/Zpix.ttf") format("truetype");
+  font-display: swap;
+}
+
+/* ===== 重置 ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--cream);
+  -webkit-font-smoothing: none;   /* 保持锐利像素 */
+  font-smooth: never;
+}
+
+/* 像素感文本渲染：关闭抗锯齿模糊 */
+img, svg, canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ===== 标题字号（Press Start 2P 偏大，故用较小 rem，保证美观可读） ===== */
+h1, h2, h3, .sec-title, .sub-title {
+  font-family: var(--font-head);
+  text-transform: none;
+  letter-spacing: 1px;
+  color: var(--brown);
+  text-shadow: 2px 2px 0 rgba(107, 68, 35, 0.22);
+}
+
+h1 { font-size: 24px; line-height: 1.6; }
+h2 { font-size: 20px; line-height: 1.6; }
+h3 { font-size: 15px; line-height: 1.6; }
+
+::selection { background: var(--sun); color: var(--brown); }
+
+/* ===== 深色主题：夜间农场调色盘 ===== */
+html[data-theme="dark"] {
+  --soil:     #c99a63;
+  --soil-lt:  #b0855c;
+  --grass:    #6aa84f;
+  --grass-dk: #4f8f3f;
+  --cream:    #201811;
+  --parchment:#33261a;
+  --parch-lt: #42321f;
+  --sun:      #e6b84a;
+  --orange:   #d9814a;
+  --brown:    #f2dca9;
+  --brown-lt: #c9a97a;
+  --wood:     #6d4a2c;
+  --wood-dk:  #452e1a;
+  --ink:      #ece0c6;
+}

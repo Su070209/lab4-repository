@@ -1,0 +1,54 @@
+/* =========================================================
+   responsive.css — 移动端单列上下布局 + 自适应
+   ========================================================= */
+
+/* ---------- 平板窄一些，仍保持左右（收窄左栏） ---------- */
+@media (max-width: 1024px) {
+  .sidebar { flex: 0 0 240px; width: 240px; }
+  .project-panel { flex-direction: column; }
+  .project-thumb { flex: 0 0 auto; width: 100%; height: 170px; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- 移动端：转为上下布局 ---------- */
+@media (max-width: 860px) {
+  .page { flex-direction: column; gap: 18px; padding: 14px; }
+
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+  }
+
+  /* 头像+简介：顶部横幅 */
+  .avatar-farm { margin-bottom: 6px; }
+
+  /* 导航改为横向像素按钮条 */
+  .sidebar-nav { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .nav-link { flex: 1 1 auto; min-width: 96px; padding: 8px; }
+  .theme-toggle { flex: 1 1 auto; min-width: 96px; padding: 8px; }
+
+  /* 快速联系区域折叠为一行内嵌 */
+  .sidebar-contact { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }
+  .sidebar-contact .side-label { display: inline; }
+  .sidebar-contact p { display: inline; }
+
+  .sec-title { font-size: 18px; }
+
+  /* 项目列表单列堆叠 */
+  .projects-list { grid-template-columns: 1fr; }
+  .project-thumb { height: 150px; }
+}
+
+/* ---------- 小屏微调 ---------- */
+@media (max-width: 480px) {
+  .intro { font-size: 14px; }
+  .project-title { font-size: 13px; }
+  .sec-title { font-size: 16px; }
+  .deco-wheat, .deco-leaf, .deco-flower, .deco-chick { transform: scale(0.8); }
+  .pixel-btn { font-size: 12px; }
+}
